@@ -1274,6 +1274,11 @@ static void SetSafetyNetProps() {
             isNormalBoot = false;
         }
     });
+    // Do not spoof on eng build
+    std::string build_type = android::base::GetProperty("ro.build.type", "");
+    if (build_type == "eng") {
+        isNormalBoot = false;
+    }
 
     // Bail out if this is recovery, fastbootd, or anything other than a normal boot.
     // fastbootd, in particular, needs the real values so it can allow flashing on
