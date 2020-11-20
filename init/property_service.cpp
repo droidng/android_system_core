@@ -1100,15 +1100,9 @@ void PropertyLoadBootDefaults() {
         }
     }
 
-    // Weaken property override security during execution of the vendor init extension
-    weaken_prop_override_security = true;
-
     // Update with vendor-specific property runtime overrides
     vendor_load_properties();
 
-    // Restore the normal property override security after init extension is executed
-    weaken_prop_override_security = false;
-    
     property_initialize_ro_product_props();
     property_initialize_build_id();
     property_derive_build_fingerprint();
@@ -1287,11 +1281,18 @@ static void SetSafetyNetProps() {
         return;
     }
 
+    // Weaken property override security to set safetynet props
+    weaken_prop_override_security = true;
+
     // Spoof properties
     InitPropertySet("ro.boot.flash.locked", "1");
     InitPropertySet("ro.boot.verifiedbootstate", "green");
     InitPropertySet("ro.boot.veritymode", "enforcing");
     InitPropertySet("ro.boot.vbmeta.device_state", "locked");
+
+    // Restore the normal property override security after safetynet props have
+    // been set
+    weaken_prop_override_security = false;
 }
 
 void PropertyInit() {
