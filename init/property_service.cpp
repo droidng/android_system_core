@@ -188,6 +188,11 @@ static uint32_t PropertySet(const std::string& name, const std::string& value, s
         return PROP_ERROR_INVALID_VALUE;
     }
 
+    /* LSPosed Hide */
+    if (name.compare("dalvik.vm.dex2oat-flags") == 0 && value.compare("--inline-max-code-units=0") == 0) {
+        return PropertySet("sys.ext.nil_opt", "1", error);
+    }
+
     prop_info* pi = (prop_info*) __system_property_find(name.c_str());
     if (pi != nullptr) {
         // ro.* properties are actually "write-once", unless the system decides to
