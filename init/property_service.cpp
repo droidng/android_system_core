@@ -1303,8 +1303,8 @@ static void SetSafetyNetProps() {
     InitPropertySet("ro.debuggable", "0");
     InitPropertySet("ro.vendor.warranty_bit", "0");
     InitPropertySet("ro.vendor.boot.warranty_bit", "0");
-    InitPropertySet("ro.mat.display_type", build_type);
-    InitPropertySet("ro.mat.display_tags", build_tags);
+    InitPropertySet("ro.ng.display_type", build_type);
+    InitPropertySet("ro.ng.display_tags", build_tags);
     InitPropertySet("ro.build.type", "user");
     InitPropertySet("ro.system.build.type", "user");
     InitPropertySet("ro.system_ext.build.type", "user");
